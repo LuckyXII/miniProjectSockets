@@ -1,0 +1,23 @@
+extends layout
+
+block resultReport
+    form(action="")
+        input#district(type=text name=districtLocale value=district)
+        input#party(type=text name=party placeholder="Party")
+        input#votes(type=text name=votes placeholder="Votes")
+        button#sendReportBtn SEND
+
+
+
+    script.
+        const sendBtn = document.getElementById("sendReportBtn");
+        const votes = document.getElementById("votes");
+        const party = document.getElementById("party");
+        const district = document.getElementById("district");
+        sendBtn.addEventListener("click", function () {
+            socket.emit("sendData", {
+                district: district.value,
+                votes: votes.value,
+                party: party.value
+            });
+        });
